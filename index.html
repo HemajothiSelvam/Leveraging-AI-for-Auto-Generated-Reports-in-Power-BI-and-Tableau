@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Data Visualization Platform</h1>
+            <p>Upload your dataset and create stunning visualizations</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Step 1: File Upload -->
+            <div class="step active" id="step1">
+                <h2>Step 1: Upload Your Dataset</h2>
+                <div class="file-upload" id="fileUpload">
+                    <div class="upload-icon">📊</div>
+                    <h3>Drag & Drop your CSV file here</h3>
+                    <p>or click to browse files</p>
+                    <input type="file" id="fileInput" accept=".csv,.xlsx,.json">
+                </div>
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <h4>File Details:</h4>
+                    <p id="fileName"></p>
+                    <p id="fileSize"></p>
+                    <button class="btn btn-primary" onclick="nextStep()">Next Step</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Platform Selection -->
+            <div class="step" id="step2">
+                <h2>Step 2: Choose Visualization Platform Style</h2>
+                <p>Select the visualization style you prefer:</p>
+                <div class="platform-options">
+                    <div class="platform-card" onclick="selectPlatform('powerbi')">
+                        <div class="platform-icon">📈</div>
+                        <h3>Power BI Style</h3>
+                        <p>Modern, interactive dashboards with rich colors and smooth animations</p>
+                        <div class="features">
+                            <span class="feature">Interactive Charts</span>
+                            <span class="feature">Rich Tooltips</span>
+                            <span class="feature">Modern Design</span>
+                        </div>
+                    </div>
+                    <div class="platform-card" onclick="selectPlatform('tableau')">
+                        <div class="platform-icon">📊</div>
+                        <h3>Tableau Style</h3>
+                        <p>Clean, professional visualizations with excellent data storytelling</p>
+                        <div class="features">
+                            <span class="feature">Clean Design</span>
+                            <span class="feature">Data Focus</span>
+                            <span class="feature">Professional Look</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="selected-platform" id="selectedPlatform" style="display: none;">
+                    <p>Selected: <span id="platformName"></span></p>
+                    <button class="btn btn-primary" onclick="nextStep()">Create Visualizations</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Data Preview -->
+            <div class="step" id="step3">
+                <h2>Step 3: Data Preview & Analysis</h2>
+                <div class="data-preview">
+                    <h3>Dataset Overview</h3>
+                    <div class="stats-grid" id="dataStats"></div>
+                    <div class="table-container">
+                        <table id="dataTable">
+                            <thead id="tableHeader"></thead>
+                            <tbody id="tableBody"></tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-primary" onclick="nextStep()">Generate Visualizations</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Visualizations -->
+            <div class="step" id="step4">
+                <h2>Step 4: Data Visualizations</h2>
+                <div class="viz-controls">
+                    <select id="chartType" onchange="updateChart()">
+                        <option value="bar">Bar Chart</option>
+                        <option value="line">Line Chart</option>
+                        <option value="pie">Pie Chart</option>
+                        <option value="scatter">Scatter Plot</option>
+                        <option value="doughnut">Doughnut Chart</option>
+                    </select>
+                    <select id="xAxis" onchange="updateChart()">
+                        <option value="">Select X-Axis</option>
+                    </select>
+                    <select id="yAxis" onchange="updateChart()">
+                        <option value="">Select Y-Axis</option>
+                    </select>
+                    <button class="btn btn-secondary" onclick="exportChart()">Export Chart</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="mainChart"></canvas>
+                </div>
+                <div class="multiple-charts" id="multipleCharts"></div>
+                <button class="btn btn-success" onclick="generateReport()">Generate Full Report</button>
+            </div>
+
+            <!-- Step 5: Report -->
+            <div class="step" id="step5">
+                <h2>Step 5: Complete Analysis Report</h2>
+                <div class="report-container" id="reportContainer">
+                    <!-- Report content will be generated here -->
+                </div>
+                <div class="report-actions">
+                    <button class="btn btn-primary" onclick="downloadReport()">Download Report</button>
+                    <button class="btn btn-secondary" onclick="startOver()">Start New Analysis</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+
+    <script src="chart-utils.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
